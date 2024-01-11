@@ -31,6 +31,7 @@
                 echo '  <div class="detailComment">';
                 echo '      <h3 class="info">Le ' . Utils::convertDateToFrenchFormat($comment->getDateCreation()) . ", " . Utils::format($comment->getPseudo()) . ' a écrit :</h3>';
                 echo '      <p class="content">' . Utils::format($comment->getContent()) . '</p>';
+                echo ' <div class="admin"> <a class="submit danger" href="index.php?action=deleteComment&id='.$comment->getIdArticle().'" onclick="return confirm("Êtes-vous sûr de vouloir supprimer cet article ?");">Supprimer</a> </div>';
                 echo '  </div>';
                 echo '</li>';
             }               

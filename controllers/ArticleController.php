@@ -30,7 +30,9 @@ class ArticleController
         if (!$article) {
             throw new Exception("L'article demandé n'existe pas.");
         }
-
+        $stats = new ArticleStatsManager();
+        $stats->addOrUpdateStats($id);
+        
         $commentManager = new CommentManager();
         $comments = $commentManager->getAllCommentsByArticleId($id);
 

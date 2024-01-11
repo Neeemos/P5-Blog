@@ -282,7 +282,12 @@ a.info {
 .detailComment .content {
     margin: 5px 0 5px 0;
 }
-
+.admin {
+    margin-top: 10px;
+}
+.danger {
+    background-color: #f13c1f;
+}
 /* Page d'erreur */
 
 .error {

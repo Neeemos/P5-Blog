@@ -43,6 +43,11 @@ try {
             $adminController = new AdminController();
             $adminController->showAdmin();
             break;
+       
+        case 'stats': 
+            $adminController = new AdminController();
+            $adminController->showStats();
+            break;
 
         case 'connectionForm':
             $adminController = new AdminController();
