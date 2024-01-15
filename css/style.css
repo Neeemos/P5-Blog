@@ -355,3 +355,15 @@ footer {
     color: white;
     background-color: var(--headerColor);
 }
+table {
+    border-collapse: collapse;
+  }
+   th {
+    background: var(--commentPaleColor)
+  }
+  
+  th, td {
+    border: 1px solid #ccc;
+    padding: 8px;
+  }
+

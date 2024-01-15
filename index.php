@@ -7,6 +7,7 @@ require_once 'config/autoload.php';
 // Si aucune action n'est demandée, on affiche la page d'accueil.
 $action = Utils::request('action', 'home');
 
+$filter = Utils::request('filter');
 // Try catch global pour gérer les erreurs
 try {
     // Pour chaque action, on appelle le bon contrôleur et la bonne méthode.
@@ -45,8 +46,14 @@ try {
             break;
        
         case 'stats': 
-            $adminController = new AdminController();
-            $adminController->showStats();
+            if ($filter) {
+                // Use the filter value in your logic
+                $adminController = new AdminController();
+                $adminController->showStatsWithFilter($filter);
+            } else {
+                $adminController = new AdminController();
+                $adminController->showStats();
+            }
             break;
 
         case 'connectionForm':

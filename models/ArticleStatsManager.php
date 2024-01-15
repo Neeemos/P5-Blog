@@ -11,24 +11,46 @@ class ArticleStatsManager extends AbstractEntityManager
      */
     public function addOrUpdateStats(int $articleId): void
     {
-        $sql = "INSERT INTO article_views (article_id, view_count) VALUES (:article_id, 1)
-                ON DUPLICATE KEY UPDATE view_count = view_count + 1";
+        $sql = "UPDATE article SET view_count = view_count + 1 WHERE id = :article_id";
 
         $this->db->query($sql, ['article_id' => $articleId]);
-        
+
     }
 
-   /**
+    /**
      * Récupère tous les articleStats.
      * @return array : un tableau d'objets ArticleStats.
      */
     public function getAllStatsWithArticleTitle(): array
     {
-        $sql = "SELECT av.article_id, av.view_count, a.title
-                FROM article_views av
-                JOIN article a ON av.article_id = a.id";
+        $sql = "SELECT id, title, view_count
+                FROM article";
 
         $result = $this->db->query($sql);
+        $stats = [];
+
+        while ($stat = $result->fetch()) {
+            $stats[] = new ArticleStats($stat);
+        }
+
+        return $stats;
+    }
+    /**
+     * Récupère tous les articleStats filtrer.
+     * @param string $filter : le filtre.
+     * @return array : un tableau d'objets ArticleStats.
+     */
+    public function getAllStatsWithArticleFilter($filter): array
+    {
+        $allowedColumns = ['title', 'view_count', 'id'];  
+        $column = in_array($filter, $allowedColumns) ? $filter : 'id'; 
+         
+        $sql = "SELECT id, title, view_count
+        FROM article
+        ORDER BY $column DESC";
+
+        $result = $this->db->query($sql);
+
         $stats = [];
 
         while ($stat = $result->fetch()) {

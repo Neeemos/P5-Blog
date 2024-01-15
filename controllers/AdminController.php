@@ -44,6 +44,26 @@ class AdminController {
             'stats' => $stats
         ]);
     }
+    /**
+     * Affiche la page de avec un filtre
+     * @param string $filter : le filtre.
+     * @return void
+     */
+    public function showStatsWithFilter($filter) : void
+    {
+        // On vérifie que l'utilisateur est connecté.
+        $this->checkIfUserIsConnected();
+
+        // On récupère les articles.
+        $articleStatsManager = new ArticleStatsManager();
+        $stats = $articleStatsManager->getAllStatsWithArticleFilter($filter);
+        // On affiche la page d'administration.
+        $view = new View("Administration");
+        $view->render("stats", [
+            'stats' => $stats,
+            'filter' =>$filter
+        ]);
+    }
 
     /**
      * Vérifie que l'utilisateur est connecté.

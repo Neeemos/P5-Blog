@@ -13,7 +13,7 @@ class ArticleStats extends AbstractEntity
      * Setter pour l'id de l'article.
      * @param int $articleId
      */
-    public function setArticleId(int $articleId): void
+    public function setId(int $articleId): void
     {
         $this->articleId = $articleId;
     }
