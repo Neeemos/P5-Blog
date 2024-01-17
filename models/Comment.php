@@ -22,6 +22,15 @@ class Comment extends AbstractEntity
     }
 
     /**
+     * Getter pour l'id du commentaire.
+     * @return int
+     */
+    public function getId(): int 
+    {
+        return $this->id;
+    }
+
+    /**
      * Setter pour l'id de l'article.
      * @param int $idArticle
      * @return void

@@ -46,8 +46,7 @@ try {
             break;
        
         case 'stats': 
-            if ($filter) {
-                // Use the filter value in your logic
+            if (isset($filter)) {
                 $adminController = new AdminController();
                 $adminController->showStatsWithFilter($filter);
             } else {
@@ -85,7 +84,9 @@ try {
             $adminController = new AdminController();
             $adminController->deleteArticle();
             break;
-
+        case 'deleteComment': 
+            $adminController = new CommentController();
+            $adminController->deleteComment();
         default:
             throw new Exception("La page demandée n'existe pas.");
     }
