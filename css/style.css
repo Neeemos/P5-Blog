@@ -317,7 +317,9 @@ a.info {
     background-color: var(--commentPaleColor);
     color: white;
 }
-
+tr:nth-child(odd) {
+    background-color: #c3cd58; 
+}
 .articleLine {
     display: flex; 
 }
