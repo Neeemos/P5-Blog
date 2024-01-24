@@ -1,15 +1,16 @@
-<?php 
+<?php
 /**
  * Contrôleur de la partie admin.
  */
- 
-class AdminController {
+
+class AdminController
+{
 
     /**
      * Affiche la page d'administration.
      * @return void
      */
-    public function showAdmin() : void
+    public function showAdmin(): void
     {
         // On vérifie que l'utilisateur est connecté.
         $this->checkIfUserIsConnected();
@@ -24,52 +25,39 @@ class AdminController {
             'articles' => $articles
         ]);
     }
-    
-    
-    /**
-     * Affiche la page de stats
-     * @return void
-     */
-    public function showStats() : void
-    {
-        // On vérifie que l'utilisateur est connecté.
-        $this->checkIfUserIsConnected();
 
-        // On récupère les articles.
-        $articleStatsManager = new ArticleStatsManager();
-        $stats = $articleStatsManager->getAllStatsWithArticleTitle();
-        // On affiche la page d'administration.
-        $view = new View("Administration");
-        $view->render("stats", [
-            'stats' => $stats
-        ]);
-    }
-    /**
-     * Affiche la page de avec un filtre
-     * @param string $filter : le filtre.
-     * @return void
-     */
-    public function showStatsWithFilter($filter) : void
-    {
-        // On vérifie que l'utilisateur est connecté.
-        $this->checkIfUserIsConnected();
 
-        // On récupère les articles.
-        $articleStatsManager = new ArticleStatsManager();
-        $stats = $articleStatsManager->getAllStatsWithArticleFilter($filter);
-        // On affiche la page d'administration.
-        $view = new View("Administration");
-        $view->render("stats", [
-            'stats' => $stats,
-            'filter' =>$filter
-        ]);
-    }
+/**
+ * Affiche la page de stats avec ou sans filtre
+ * @param string|null $filter : colonne de filtre.
+ * @param string|null $filterBy : asc/desc.
+ * @return void
+ */
+public function showStats(?string $filter = null, ?string $filterBy = null): void
+{
+    // On vérifie que l'utilisateur est connecté.
+    $this->checkIfUserIsConnected();
+
+    // On récupère les articles.
+    $articleStatsManager = new ArticleStatsManager();
+
+    // Utilize the unified method with or without filter.
+    $stats = $articleStatsManager->getAllStatsWithArticle($filter, $filterBy);
+
+    // On affiche la page d'administration.
+    $view = new View("Administration");
+    $view->render("stats", [
+        'stats' => $stats,
+        'filter' => $filter, 
+        'filterBy' => $filterBy
+    ]);
+}
 
     /**
      * Vérifie que l'utilisateur est connecté.
      * @return void
      */
-    private function checkIfUserIsConnected() : void
+    private function checkIfUserIsConnected(): void
     {
         // On vérifie que l'utilisateur est connecté.
         if (!isset($_SESSION['user'])) {
@@ -81,7 +69,7 @@ class AdminController {
      * Affichage du formulaire de connexion.
      * @return void
      */
-    public function displayConnectionForm() : void 
+    public function displayConnectionForm(): void
     {
         $view = new View("Connexion");
         $view->render("connectionForm");
@@ -91,7 +79,7 @@ class AdminController {
      * Connexion de l'utilisateur.
      * @return void
      */
-    public function connectUser() : void 
+    public function connectUser(): void
     {
         // On récupère les données du formulaire.
         $login = Utils::request("login");
@@ -127,7 +115,7 @@ class AdminController {
      * Déconnexion de l'utilisateur.
      * @return void
      */
-    public function disconnectUser() : void 
+    public function disconnectUser(): void
     {
         // On déconnecte l'utilisateur.
         unset($_SESSION['user']);
@@ -140,7 +128,7 @@ class AdminController {
      * Affichage du formulaire d'ajout d'un article.
      * @return void
      */
-    public function showUpdateArticleForm() : void 
+    public function showUpdateArticleForm(): void
     {
         $this->checkIfUserIsConnected();
 
@@ -168,7 +156,7 @@ class AdminController {
      * On sait si un article est ajouté car l'id vaut -1.
      * @return void
      */
-    public function updateArticle() : void 
+    public function updateArticle(): void
     {
         $this->checkIfUserIsConnected();
 
@@ -203,7 +191,7 @@ class AdminController {
      * Suppression d'un article.
      * @return void
      */
-    public function deleteArticle() : void
+    public function deleteArticle(): void
     {
         $this->checkIfUserIsConnected();
 
@@ -212,7 +200,25 @@ class AdminController {
         // On supprime l'article.
         $articleManager = new ArticleManager();
         $articleManager->deleteArticle($id);
-       
+
+        // On redirige vers la page d'administration.
+        Utils::redirect("admin");
+    }
+    /**
+     * Suppression d'un commentaire.
+     * @return void
+     */
+    public function deleteComment(): void
+    {
+        $this->checkIfUserIsConnected();
+
+        $idArticle = (int) Utils::request("article");
+        $idComment = (int) Utils::request("id");
+
+        // On supprime le commentaire.
+        $adminController = new CommentController();
+        $adminController->deleteComment($idArticle, $idComment);
+
         // On redirige vers la page d'administration.
         Utils::redirect("admin");
     }

@@ -18,45 +18,28 @@ class ArticleStatsManager extends AbstractEntityManager
     }
 
     /**
-     * Récupère tous les articleStats.
-     * @return array : un tableau d'objets ArticleStats.
-     */
-    public function getAllStatsWithArticleTitle(): array
-    {
-        $sql = "SELECT id, title, view_count
-                FROM article";
+ * Récupère tous les articleStats avec ou sans filtre.
+ * @param string|null $filter : colonne de filtre.
+ * @param string|null $filterBy : asc/desc.
+ * @return array : un tableau d'objets ArticleStats.
+ */
+public function getAllStatsWithArticle(?string $filter = null, ?string $filterBy = null): array
+{
+    $allowedColumns = ['title', 'view_count', 'id'];
+    $column = in_array($filter, $allowedColumns) ? $filter : 'id';
+    $filterQuery = ($filterBy == 'desc') ? " ORDER BY $column DESC " : " ORDER BY $column ASC ";
+    
+    $sql = "SELECT id, title, view_count
+            FROM article
+            $filterQuery";
 
-        $result = $this->db->query($sql);
-        $stats = [];
+    $result = $this->db->query($sql);
+    $stats = [];
 
-        while ($stat = $result->fetch()) {
-            $stats[] = new ArticleStats($stat);
-        }
-
-        return $stats;
+    while ($stat = $result->fetch()) {
+        $stats[] = new ArticleStats($stat);
     }
-    /**
-     * Récupère tous les articleStats filtrer.
-     * @param string $filter : le filtre.
-     * @return array : un tableau d'objets ArticleStats.
-     */
-    public function getAllStatsWithArticleFilter($filter): array
-    {
-        $allowedColumns = ['title', 'view_count', 'id'];  
-        $column = in_array($filter, $allowedColumns) ? $filter : 'id'; 
-         
-        $sql = "SELECT id, title, view_count
-        FROM article
-        ORDER BY $column DESC";
 
-        $result = $this->db->query($sql);
-
-        $stats = [];
-
-        while ($stat = $result->fetch()) {
-            $stats[] = new ArticleStats($stat);
-        }
-
-        return $stats;
-    }
+    return $stats;
+}
 }

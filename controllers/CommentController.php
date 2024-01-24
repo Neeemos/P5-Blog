@@ -45,14 +45,13 @@ class CommentController
         Utils::redirect("showArticle", ['id' => $idArticle]);
     }
     /**
+     * @param int $idArticle : l'id de l'article.
+     * @param int $idComment : l'id du commentaire.
      * Suppression d'un commentaire.
      * @return void
      */
-    public function deleteComment(): void
+    public function deleteComment($idArticle, $idComment): void
     {
-        $idArticle = (int) Utils::request("article");
-        $idComment = (int) Utils::request("id");
-
         // On vérifie que les données sont valides.
         if (empty($idArticle) || empty($idComment)) {
             throw new Exception("Tous les champs sont obligatoires. ");

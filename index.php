@@ -6,8 +6,9 @@ require_once 'config/autoload.php';
 // On récupère l'action demandée par l'utilisateur.
 // Si aucune action n'est demandée, on affiche la page d'accueil.
 $action = Utils::request('action', 'home');
-
 $filter = Utils::request('filter');
+$filterBy = Utils::request('filterBy');
+
 // Try catch global pour gérer les erreurs
 try {
     // Pour chaque action, on appelle le bon contrôleur et la bonne méthode.
@@ -46,13 +47,8 @@ try {
             break;
        
         case 'stats': 
-            if (isset($filter)) {
                 $adminController = new AdminController();
-                $adminController->showStatsWithFilter($filter);
-            } else {
-                $adminController = new AdminController();
-                $adminController->showStats();
-            }
+                $adminController->showStats($filter, $filterBy);
             break;
 
         case 'connectionForm':
@@ -85,7 +81,7 @@ try {
             $adminController->deleteArticle();
             break;
         case 'deleteComment': 
-            $adminController = new CommentController();
+            $adminController = new AdminController();
             $adminController->deleteComment();
         default:
             throw new Exception("La page demandée n'existe pas.");

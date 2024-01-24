@@ -320,6 +320,9 @@ a.info {
 tr:nth-child(odd) {
     background-color: #c3cd58; 
 }
+.adminArticle .articleLine:nth-child(even) {
+    background-color: #c3cd58;
+}
 .articleLine {
     display: flex; 
 }
