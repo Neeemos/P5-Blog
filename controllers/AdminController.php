@@ -29,11 +29,11 @@ class AdminController
 
 /**
  * Affiche la page de stats avec ou sans filtre
- * @param string|null $filter : colonne de filtre.
- * @param string|null $filterBy : asc/desc.
+ * @param string|null $order : colonne de filtre.
+ * @param string|null $orderBy : asc/desc.
  * @return void
  */
-public function showStats(?string $filter = null, ?string $filterBy = null): void
+public function showStats(?string $order = null, ?string $orderBy = null): void
 {
     // On vérifie que l'utilisateur est connecté.
     $this->checkIfUserIsConnected();
@@ -41,15 +41,15 @@ public function showStats(?string $filter = null, ?string $filterBy = null): voi
     // On récupère les articles.
     $articleStatsManager = new ArticleStatsManager();
 
-    // Utilize the unified method with or without filter.
-    $stats = $articleStatsManager->getAllStatsWithArticle($filter, $filterBy);
+    // Utilize the unified method with or without order.
+    $stats = $articleStatsManager->getAllStatsWithArticle($order, $orderBy);
 
     // On affiche la page d'administration.
     $view = new View("Administration");
     $view->render("stats", [
         'stats' => $stats,
-        'filter' => $filter, 
-        'filterBy' => $filterBy
+        'order' => $order, 
+        'orderBy' => $orderBy
     ]);
 }
 

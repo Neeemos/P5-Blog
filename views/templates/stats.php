@@ -1,9 +1,8 @@
 <?php
-// Assuming $filter and $filterby are defined
-$filter = $filter ?? '';
-$filterby = $filterBy ?? '';
-
-$filtered = ($filterby === 'asc') ? 'asc' : (($filterby === 'desc') ? 'desc' : false);
+// Assuming $order and $orderby are defined
+$order = $order ?? '';
+$orderby = $orderBy ?? '';
+$ordered = ($orderby === 'asc') ? 'asc' : (($orderby === 'desc') ? 'desc' : false);
 ?>
 
 <h2>Informations et statistiques</h2>
@@ -13,18 +12,18 @@ $filtered = ($filterby === 'asc') ? 'asc' : (($filterby === 'desc') ? 'desc' : f
         <thead>
             <tr>
                 <th>
-                    <a href="index.php?action=stats&filter=title&filterBy=<?= ($filter === 'title' && $filtered === 'asc') ? 'desc' : 'asc' ?>">
-                        Titres <?= ($filter === 'title') ? ($filtered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
+                    <a href="index.php?action=stats&order=title&orderBy=<?= ($order === 'title' && $ordered === 'asc') ? 'desc' : 'asc' ?>">
+                        Titres <?= ($order === 'title') ? ($ordered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
                     </a>
                 </th>
                 <th>
-                    <a href="index.php?action=stats&filter=article&filterBy=<?= ($filter === 'article' && $filtered === 'asc') ? 'desc' : 'asc' ?>">
-                        Article <?= ($filter === 'article') ? ($filtered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
+                    <a href="index.php?action=stats&order=article&orderBy=<?= ($order === 'article' && $ordered === 'asc') ? 'desc' : 'asc' ?>">
+                        Article <?= ($order === 'article') ? ($ordered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
                     </a>
                 </th>
                 <th>
-                    <a href="index.php?action=stats&filter=view_count&filterBy=<?= ($filter === 'view_count' && $filtered === 'asc') ? 'desc' : 'asc' ?>">
-                        Nombre de vue <?= ($filter === 'view_count') ? ($filtered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
+                    <a href="index.php?action=stats&order=view_count&orderBy=<?= ($order === 'view_count' && $ordered === 'asc') ? 'desc' : 'asc' ?>">
+                        Nombre de vue <?= ($order === 'view_count') ? ($ordered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
                     </a>
                 </th>
                 <th>Modifier</th>
