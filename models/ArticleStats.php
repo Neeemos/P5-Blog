@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Entité pour les statistiques d'articles.
@@ -8,6 +8,8 @@ class ArticleStats extends AbstractEntity
     private int $articleId;
     private int $viewCount;
     private string $title;
+    private string $DateCreation;
+    private int $countComment;
 
     /**
      * Setter pour l'id de l'article.
@@ -44,6 +46,43 @@ class ArticleStats extends AbstractEntity
     {
         return $this->viewCount;
     }
+    /**
+     * Setter pour la date de creation.
+     * @param string $DateCreation
+     */
+    public function setDateCreation(string $DateCreation): void
+    {
+        $this->DateCreation = $DateCreation;
+    }
+
+    /**
+     * Getter pour la date de creation.
+     * @return string
+     */
+    public function getDateCreation(): string|DateTime
+    {
+        return $this->DateCreation;
+    }
+
+    /**
+     * Setter pour la date de creation.
+     * @param int $countComment
+     */
+    public function setCountComment(string $countComment): void
+    {
+        $this->countComment = $countComment;
+    }
+
+    /**
+     * Getter pour la date de creation.
+     * @return string
+     */
+    public function getCountComment(): string
+    {
+        return $this->countComment;
+    }
+
+
 
     /**
      * Setter pour le titre de l'article.

@@ -27,6 +27,16 @@ $filtered = ($filterby === 'asc') ? 'asc' : (($filterby === 'desc') ? 'desc' : f
                         Nombre de vue <?= ($filter === 'view_count') ? ($filtered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
                     </a>
                 </th>
+                <th>
+                    <a href="index.php?action=stats&filter=date_creation&filterBy=<?= ($filter === 'date_creation' && $filtered === 'asc') ? 'desc' : 'asc' ?>">
+                        Date de creation <?= ($filter === 'date_creation') ? ($filtered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
+                    </a>
+                </th>
+                <th>
+                    <a href="index.php?action=stats&filter=countComment&filterBy=<?= ($filter === 'countComment' && $filtered === 'asc') ? 'desc' : 'asc' ?>">
+                        Nombre de commentaire <?= ($filter === 'countComment') ? ($filtered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
+                    </a>
+                </th>
                 <th>Modifier</th>
                 <th>Supprimer</th>
             </tr>
@@ -37,6 +47,8 @@ $filtered = ($filterby === 'asc') ? 'asc' : (($filterby === 'desc') ? 'desc' : f
                     <td class="title"><?= $stat->getTitle() ?></td>
                     <td><a href="index.php?action=showArticle&id=<?= $stat->getArticleId() ?>"><?= $stat->getArticleId() ?></a></td>
                     <td class="content"><?= $stat->getViewCount() ?> personnes</td>
+                    <td class="content"><?= $stat->getDateCreation() ?></td>
+                    <td class="content"><?= $stat->getCountComment() ?></td>
                     <td><a class="submit" href="index.php?action=showUpdateArticleForm&id=<?= $stat->getArticleId() ?>">Modifier</a></td>
                     <td><a class="submit" href="index.php?action=deleteArticle&id=<?= $stat->getArticleId() ?>"
                             <?= Utils::askConfirmation("Êtes-vous sûr de vouloir supprimer cet article ?") ?>>Supprimer</a></td>

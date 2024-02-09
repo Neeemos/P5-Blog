@@ -18,28 +18,30 @@ class ArticleStatsManager extends AbstractEntityManager
     }
 
     /**
- * Récupère tous les articleStats avec ou sans filtre.
- * @param string|null $filter : colonne de filtre.
- * @param string|null $filterBy : asc/desc.
- * @return array : un tableau d'objets ArticleStats.
- */
-public function getAllStatsWithArticle(?string $filter = null, ?string $filterBy = null): array
-{
-    $allowedColumns = ['title', 'view_count', 'id'];
-    $column = in_array($filter, $allowedColumns) ? $filter : 'id';
-    $filterQuery = ($filterBy == 'desc') ? " ORDER BY $column DESC " : " ORDER BY $column ASC ";
-    
-    $sql = "SELECT id, title, view_count
+     * Récupère tous les articleStats avec ou sans filtre.
+     * @param string|null $filter : colonne de filtre.
+     * @param string|null $filterBy : asc/desc.
+     * @return array : un tableau d'objets ArticleStats.
+     */
+    public function getAllStatsWithArticle(?string $filter = null, ?string $filterBy = null): array
+    {
+        $allowedColumns = ['title', 'view_count', 'id', 'date_creation', 'countComment'];
+        $column = in_array($filter, $allowedColumns) ? $filter : 'id';
+        $filterQuery = ($filterBy == 'desc') ? " ORDER BY $column DESC " : " ORDER BY $column ASC ";
+
+        $sql = "SELECT article.*, COUNT(comment.id) AS countComment
             FROM article
+            LEFT JOIN comment ON article.id = comment.id_article
+            GROUP BY article.id
             $filterQuery";
 
-    $result = $this->db->query($sql);
-    $stats = [];
+        $result = $this->db->query($sql);
+        $stats = [];
 
-    while ($stat = $result->fetch()) {
-        $stats[] = new ArticleStats($stat);
+        while ($stat = $result->fetch()) {
+            $stats[] = new ArticleStats($stat);
+        }
+
+        return $stats;
     }
-
-    return $stats;
-}
 }

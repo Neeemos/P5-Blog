@@ -46,6 +46,7 @@ public function showStats(?string $filter = null, ?string $filterBy = null): voi
 
     // On affiche la page d'administration.
     $view = new View("Administration");
+
     $view->render("stats", [
         'stats' => $stats,
         'filter' => $filter, 

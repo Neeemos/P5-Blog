@@ -68,7 +68,7 @@ class CommentController
         $result = $commentManager->removeComment($idComment);
 
         if (!$result) {
-            throw new Exception("Une erreur est survenue lors de l'ajout du commentaire.");
+            throw new Exception("Une erreur est survenue lors de la suppression du commentaire.");
         }
         // On reviens sur l'article.
         Utils::redirect("showArticle", ['id' => $idArticle]);
