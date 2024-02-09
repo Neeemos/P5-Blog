@@ -27,13 +27,13 @@ $ordered = ($orderby === 'asc') ? 'asc' : (($orderby === 'desc') ? 'desc' : fals
                     </a>
                 </th>
                 <th>
-                    <a href="index.php?action=stats&filter=date_creation&filterBy=<?= ($filter === 'date_creation' && $filtered === 'asc') ? 'desc' : 'asc' ?>">
-                        Date de creation <?= ($filter === 'date_creation') ? ($filtered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
+                    <a href="index.php?action=stats&order=date_creation&orderBy=<?= ($order === 'date_creation' && $ordered === 'asc') ? 'desc' : 'asc' ?>">
+                        Date de creation <?= ($order === 'date_creation') ? ($ordered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
                     </a>
                 </th>
                 <th>
-                    <a href="index.php?action=stats&filter=countComment&filterBy=<?= ($filter === 'countComment' && $filtered === 'asc') ? 'desc' : 'asc' ?>">
-                        Nombre de commentaire <?= ($filter === 'countComment') ? ($filtered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
+                    <a href="index.php?action=stats&order=countComment&orderBy=<?= ($order === 'countComment' && $ordered === 'asc') ? 'desc' : 'asc' ?>">
+                        Nombre de commentaire <?= ($order === 'countComment') ? ($ordered === 'asc' ? '<i class="fas fa-arrow-down"></i>' : '<i class="fas fa-arrow-up"></i>') : ''; ?>
                     </a>
                 </th>
                 <th>Modifier</th>
