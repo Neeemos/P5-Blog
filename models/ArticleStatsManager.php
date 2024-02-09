@@ -19,15 +19,16 @@ class ArticleStatsManager extends AbstractEntityManager
 
     /**
      * Récupère tous les articleStats avec ou sans filtre.
-     * @param string|null $filter : colonne de filtre.
-     * @param string|null $filterBy : asc/desc.
+     * @param string|null $order : colonne de filtre.
+     * @param string|null $orderBy : asc/desc.
      * @return array : un tableau d'objets ArticleStats.
      */
-    public function getAllStatsWithArticle(?string $filter = null, ?string $filterBy = null): array
+    public function getAllStatsWithArticle(?string $order = null, ?string $orderBy = null): array
     {
+
         $allowedColumns = ['title', 'view_count', 'id', 'date_creation', 'countComment'];
-        $column = in_array($filter, $allowedColumns) ? $filter : 'id';
-        $filterQuery = ($filterBy == 'desc') ? " ORDER BY $column DESC " : " ORDER BY $column ASC ";
+        $column = in_array($order, $allowedColumns) ? $order : 'id';
+        $filterQuery = ($orderBy == 'desc') ? " ORDER BY $column DESC " : " ORDER BY $column ASC ";
 
         $sql = "SELECT article.*, COUNT(comment.id) AS countComment
             FROM article

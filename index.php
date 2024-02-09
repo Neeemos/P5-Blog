@@ -6,8 +6,8 @@ require_once 'config/autoload.php';
 // On récupère l'action demandée par l'utilisateur.
 // Si aucune action n'est demandée, on affiche la page d'accueil.
 $action = Utils::request('action', 'home');
-$filter = Utils::request('filter');
-$filterBy = Utils::request('filterBy');
+$order = Utils::request('order');
+$orderBy = Utils::request('orderBy');
 
 // Try catch global pour gérer les erreurs
 try {
@@ -48,7 +48,7 @@ try {
        
         case 'stats': 
                 $adminController = new AdminController();
-                $adminController->showStats($filter, $filterBy);
+                $adminController->showStats($order, $orderBy);
             break;
 
         case 'connectionForm':
